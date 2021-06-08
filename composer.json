@@ -17,6 +17,10 @@
         "ext-openssl": "*",
         "ext-curl": "*",
         "ext-intl": "*",
+        "ext-gd": "*",
+        "ext-mbstring": "*",
+        "ext-zend-opcache": "*",
+        "ext-apcu": "*",
         "ext-zip": "*",
         "ext-dom": "*",
         "ext-libxml": "*",
@@ -78,10 +82,7 @@
         "symfony/polyfill-php73": "*"
     },
     "suggest": {
-        "ext-mbstring": "Recommended for better performance",
         "ext-iconv": "Recommended for better performance",
-        "ext-zend-opcache": "Recommended for better performance",
-        "ext-intl": "Recommended for multi-language sites",
         "ext-memcache": "Needed to support Memcache servers",
         "ext-memcached": "Needed to support Memcached servers",
         "ext-redis": "Needed to support Redis servers"
