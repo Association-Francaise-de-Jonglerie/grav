@@ -15,6 +15,10 @@ git:
         url: https://github.com/Perlkonig/grav-plugin-twig-extensions
         path: user/plugins/twig-extensions
         branch: master
+    shortcode-gallery-plusplus:
+        url: https://github.com/sal0max/grav-plugin-shortcode-gallery-plusplus
+        path: user/plugins/shortcode-gallery-plusplus
+        branch: master
     afj:
         url: https://github.com/voodoos/grav-theme-afj
         path: user/themes/afj
@@ -39,6 +43,10 @@ links:
     twig-extensions:
         src: grav-plugin-twig-extensions
         path: user/plugins/twig-extensions
+        scm: github
+    shortcode-gallery-plusplus:
+        src: grav-plugin-shortcode-gallery-plusplus
+        path: user/plugins/shortcode-gallery-plusplus
         scm: github
     afj:
         src: grav-theme-afj
