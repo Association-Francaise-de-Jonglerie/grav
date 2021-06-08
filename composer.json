@@ -117,7 +117,8 @@
         "compile": [
             "cd user/plugins/event-list && composer update --no-dev",
             "bin/grav install",
-            "bin/gpm install shortcode-gallery-plusplus"
+            "bin/gpm install shortcode-gallery-plusplus -y",
+            "bin/gpm install twig-extensions -y"
         ]
     },
     "extra": {
