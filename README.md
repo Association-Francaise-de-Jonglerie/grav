@@ -1,3 +1,31 @@
+## git-sync
+Le plugin `git-sync` permet de maintenir la synchronisation dans les deux sens
+entre le contenu du dépôt @team-afj/user avec les modifications faites dans
+l'interface d'administration.
+
+Pour des raisons de sécurité la configuration de ce plugin n'est *pas*
+synchronisée automatiquement (elle contient des identifiants GitHub) et doit
+donc être *attentivement* re-faite lors d'une nouvelle installation de Grav.
+
+Voici la liste des options de configuration a utiliser:
+- `Hosting`: Github
+- `Git User`: Jonglobot
+- `Git Password or token`: `<jonglobot's personnal token>`
+- `Git repository`: https://github.com/team-afj/grav-user.git
+- `Repository branch`: main
+- `Web hook`: /_git-sync-03a024a935ff
+- `Use webhook secret`: `<the webhook secret>`
+- `What to synchronize`: only Pages, Themes, Plugins and Config
+- `gitignore`:
+```
+security.yaml
+git-sync.yaml
+!/themes/afj
+!/data/calendars
+!/themes/afj
+```
+
+
 # ![](https://avatars1.githubusercontent.com/u/8237355?v=2&s=50) Grav
 
 [![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
