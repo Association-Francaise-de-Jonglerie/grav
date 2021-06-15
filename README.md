@@ -1,25 +1,10 @@
 # Site de l'association Française de Jonglerie
 
-## Pour les éditeurs
+Ce dépôt est le seul avec lequel les contributeurs ont besoin d'intéragir pour
+participer au dévellopement du site de l'AFJ. Il contient le dossier `user` et
+le thème qui sont intégrés de manière transparente avec des git subtrees.
 
-Il suffit de se connecter à [l'interface d'administration du
-site](https://afj.trevien.ovh/admin) puis d'utiliser l'interface graphique pour
-modifier les contenus et la configuration.
-
-Les modifications seront automatiquement sauvegardées dans le dépôt git
-@team-afj/user.
-
-N'hésitez pas à [ouvrir une issue](https://github.com/team-afj/grav/issues) ou
-signaler sur Slack lorsque vous rencontrez un problème ou si une fonctionnalité
-manque comme par exemple la possibilité d'ajouter un bouton dans une page.
-
-## Pour les développeurs
-
-Le dépôt @team-afj/grav est le seul avec lequel les contributeurs ont besoin
-d'intéragir. Il contient le dossier `user` et le thème qui sont intégrés de
-manière transparente avec des git subtrees.
-
-### Organisation des dépôts
+### Organisation des dépôts du site
 - @team-afj/grav-theme-afj contient le code du thème. Il s'agit d'un fork du
   thème par défaut de grav, Duark (@getgrav/quark).
 
