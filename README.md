@@ -1,13 +1,75 @@
-## git-sync
-Le plugin `git-sync` permet de maintenir la synchronisation dans les deux sens
-entre le contenu du dépôt @team-afj/user avec les modifications faites dans
-l'interface d'administration.
+# Site de l'association Française de Jonglerie
+
+## Pour les éditeurs
+
+Il suffit de se connecter à [l'interface d'administration du
+site](https://afj.trevien.ovh/admin) puis d'utiliser l'interface graphique pour
+modifier les contenus et la configuration.
+
+Les modifications seront automatiquement sauvegardées dans le dépôt git
+@team-afj/user.
+
+N'hésitez pas à [ouvrir une issue](https://github.com/team-afj/grav/issues) ou
+signaler sur Slack lorsque vous rencontrez un problème ou si une fonctionnalité
+manque comme par exemple la possibilité d'ajouter un bouton dans une page.
+
+## Pour les développeurs
+
+Le dépôt @team-afj/grav est le seul avec lequel les contributeurs ont besoin
+d'intéragir. Il contient le dossier `user` et le thème qui sont intégrés de
+manière transparente avec des git subtrees.
+
+### Organisation des dépôts
+- @team-afj/grav-theme-afj contient le code du thème. Il s'agit d'un fork du
+  thème par défaut de grav, Duark (@getgrav/quark).
+
+- @team-afj/grav-user correspond au dossier `user` d'une installation de Grav. Ce
+  dossier est automatiquement synchronisé avec le dossier `user` du site en
+  production (voir section sur `git-sync`). Le thème @team-afj/grav-theme-afj
+  est inclus dans le dossier `themes` de ce dépôt (sous la forme d'un *git
+  subtree*).
+
+- @team-afj/grav est le camp de base pour les développeurs. Il s'agit d'un fork
+  de @getgrav/grav qui inclut, sous la forme d'un git subtree, le dépôt
+  @team-afj/grav-user (et donc également le thème).
+
+### Développement local avec `ddev`
+
+Le moyen le plus simple de développer localement d'utiliser l'outil
+`ddev` qui se charge de lancer un serveur dans un containeur docker.
+
+- Installez `ddev` en suivant [les instructions du site
+  officiel](https://ddev.readthedocs.io/en/latest/)
+- Executez `ddev start` depuis le répertoire racine du dépot git
+
+Plus d'infos dans la [doc de Grav](https://learn.getgrav.org/17/webservers-hosting/local-development-with-ddev).
+
+
+### git subrepo
+Afin d'éviter les nombreux pièges liés aux *git submodules*, l'imbrication des
+dépôts est faite à l'aide de l'outil [git
+subrepo](https://github.com/ingydotnet/git-subrepo) (qui lui même utilise les
+*subtree* de git).
+
+Pour les développeurs travaillant sur @team-afj/grav cela est complètement transparent !
+### git-sync
+Le plugin officiel de Grav `git-sync` permet de maintenir la synchronisation
+dans les deux sens entre le contenu du dépôt @team-afj/user avec les
+modifications faites dans l'interface d'administration.
 
 Pour des raisons de sécurité la configuration de ce plugin n'est *pas*
 synchronisée automatiquement (elle contient des identifiants GitHub) et doit
 donc être *attentivement* re-faite lors d'une nouvelle installation de Grav.
 
-Voici la liste des options de configuration a utiliser:
+Il faut *surtout ne pas utiliser l'assistant de configuration "Wizard"* qui se
+lance lors de l'installation du plugin car il ne permet pas de configurer toutes
+les options avant la première synchronisation. Il faut "Annuler"/"Cancel" le
+wizard puis rentrer manuellement la configuration complète (le .gitignore étant
+particulièrement important pour éviter que des fichiers de configuration
+sensibles ne soient uploadés sur le dépôt public).
+
+Voici la liste des options de configuration a utiliser avant la première
+synchronisation:
 - `Hosting`: Github
 - `Git User`: Jonglobot
 - `Git Password or token`: `<jonglobot's personnal token>`
@@ -15,15 +77,19 @@ Voici la liste des options de configuration a utiliser:
 - `Repository branch`: main
 - `Web hook`: /_git-sync-03a024a935ff
 - `Use webhook secret`: `<the webhook secret>`
-- `What to synchronize`: only Pages, Themes, Plugins and Config
+- `What to synchronize`: Pages, Themes, Plugins and Config
 - `gitignore`:
-```
-security.yaml
-git-sync.yaml
-!/themes/afj
-!/data/calendars
-!/themes/afj
-```
+   ```
+   security.yaml
+   git-sync.yaml
+   versions.yaml
+   !.gitignore
+   !.gitkeep
+   ```
+
+
+
+Ci-dessous, le README de Grav.
 
 
 # ![](https://avatars1.githubusercontent.com/u/8237355?v=2&s=50) Grav
