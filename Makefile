@@ -1,4 +1,5 @@
-THEME_PATH := user/themes/afj
+USER_PATH := user
+THEME_PATH := $(USER_PATH)/themes/afj
 
 # We use git-subrepo to handle sub-trees
 # and avoid the usual git submodules hiccups
@@ -9,10 +10,10 @@ subrepo-clean:
 	git subrepo clean --ALL
 
 user-pull: subrepo-clean
-	git subrepo pull $(THEME_PATH)
+	git subrepo pull $(USER_PATH)
 
 user-push: subrepo-clean
-	git subrepo push $(THEME_PATH)
+	git subrepo push $(USER_PATH)
 
 theme-pull: subrepo-clean
 	git subrepo pull $(THEME_PATH)
