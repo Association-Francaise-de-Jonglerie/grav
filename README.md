@@ -44,8 +44,28 @@ Le moyen le plus simple de développer localement d'utiliser l'outil
 
 Plus d'infos dans la [doc de Grav](https://learn.getgrav.org/17/webservers-hosting/local-development-with-ddev).
 
+### Le Thème Afj
+
+Dans le dossier `user/themes/afj` et synchronisé (de temps en temps) vers
+@team-afj/grav-theme-afj.
+
+Il s'agit d'un fork du thème de base Quark de Grav. J'ai décidé d'utiliser le
+même framework CSS qu'eux: https://picturepan2.github.io/spectre/
+
+Les styles sont écris en `scss` dans le dossier du même nom. La commande `yarn
+build` permet de les compiler, et `yarn dev` de faire de même automatiquement.
+
+### Le plugin Event-list
+
+Dans le dossier `user/plugin/event-list`, pour l'instant il n'a pas sont propre
+sous-repo.
+
+Il permet d'afficher une liste d'évènements à venir à partir d'un fichier ICAL.
+Il nécéssite un peu de nettoyage / linting et il manque la possibilité de
+synchroniser automatiquement le fichier ICAL.
 
 ### git subrepo
+
 Afin d'éviter les nombreux pièges liés aux *git submodules*, l'imbrication des
 dépôts est faite à l'aide de l'outil [git
 subrepo](https://github.com/ingydotnet/git-subrepo) (qui lui même utilise les
@@ -53,6 +73,7 @@ subrepo](https://github.com/ingydotnet/git-subrepo) (qui lui même utilise les
 
 Pour les développeurs travaillant sur @team-afj/grav cela est complètement transparent !
 ### git-sync
+
 Le plugin officiel de Grav `git-sync` permet de maintenir la synchronisation
 dans les deux sens entre le contenu du dépôt @team-afj/user avec les
 modifications faites dans l'interface d'administration.
