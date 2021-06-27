@@ -15,9 +15,11 @@ Suivez l'AFJ sur ~~Sheitan.com~~ (euh... sur) le [facebook de l'AFJ](https://www
 
 [Jongle.net](http://www.jongle.net/)
 
+[Juggle Master](https://www.jugglemaster.fr/)
+
 [Maison des Jonglages](http://maisondesjonglages.fr/fr)
 
-##### **Sites généralistes anglophones**
+##### **Sites généralistes anglophones et autres langues**
 
 [Association Européenne de Jonglerie (EJA)](https://www.eja.net/)
 
@@ -29,13 +31,33 @@ Suivez l'AFJ sur ~~Sheitan.com~~ (euh... sur) le [facebook de l'AFJ](https://www
 
 [Juggling Information Service](http://www.juggling.org/)
 
-##### **Sites spécifiques francophones**
+[Juggling Magazine (Italien)](https://www.jugglingmagazine.it/home/)
+
+[Kaskade - The European Juggling Magazine](https://www.facebook.com/Kaskade.mag)
+
+[The Catch - The UK's Juggling Magazine](http://www.jugglingmagazines.com/)
+
+##### **Sites spécifiques**
+
+[Acropedia](https://www.acropedia.org/)
 
 [Art of diabolo](http://www.artofdiabolo.com/)
 
+[Fight Night Combat](https://www.fightnightcombat.com/index.html)
+
+[FlowArts.org](https://flowarts.org/)
+
+[FlowArts Institute](https://flowartsinstitute.com/juggle-vs-flow/)
+
 [Home of poï](https://www.homeofpoi.com/fr/)
 
+[Jongle avec tes mains](http://jongle.avec.tes.main.free.fr/)
+
+[Kendama France](https://www.kendama-france.com/)
+
 [Le Jonglage avec balles](http://didier.arlabosse.free.fr/balles/index.html)
+
+[Monocycle.info](https://monocycle.info/tag/convention/)
 
 [Roulemaboule](https://roulemabouleasso.wordpress.com/2018/09/11/liens/)
 
@@ -47,6 +69,12 @@ Suivez l'AFJ sur ~~Sheitan.com~~ (euh... sur) le [facebook de l'AFJ](https://www
 [Circopedia](http://www.circopedia.org/Main_Page)
 
 [Chaîne YT d'Eloi P.](https://www.youtube.com/channel/UC12ztoIIOOs4c0B0d_g-cmQ)
+
+[Chaîne YT IJA Jugglers](https://www.youtube.com/c/IJAvideo/featured)
+
+[FlowArts.me](http://flowarts.me/tutorials/contact-juggling/)
+
+[Jason Garfield - Comedy Juggling](https://www.jasongarfield.com/)
 
 [Jonglage.net](https://www.jonglage.net/)
 
@@ -76,14 +104,32 @@ Suivez l'AFJ sur ~~Sheitan.com~~ (euh... sur) le [facebook de l'AFJ](https://www
 
 ##### **Sites de vendeurs de matériel de jongle**
 
+[Circus Planet](https://www.circus-planet.com/fr/)
+
+[Firetoys](https://www.firetoys.co.uk/)
+
+[Flow Juggle](https://fr.flowjuggle.com/)
+
 [Flowtoys](https://flowtoys.com/)
 
 [Henrys](https://henrys.fr/)
 
+[Home of Poï](https://www.homeofpoi.com/fr/)
+
+[Hoopologie](https://www.hoopologie.com/)
+
+[K8 Juggling Store](https://k8juggling.com/en/)
+
 [La Ribouldingue](https://www.laribouldingue.com/)
+
+[Lighttoys](https://www.lighttoys.cz/product/led-juggling-club-ft/)
 
 [Mister Babache](https://www.jonglerie.com/)
 
 [Net Jugglers](https://www.netjuggler.net/?msclkid=8872157787c516a60c4d75a19440f8ab&utm_source=bing&utm_medium=cpc&utm_campaign=001%20Marque&utm_term=netjuggler&utm_content=Netjuggler%20exact)
 
+[Oddballs](https://www.oddballs.co.uk/)
+
 [Play](https://www.playjuggling.com/en/)
+
+[Renegade Juggling](https://www.renegadejuggling.com/)
