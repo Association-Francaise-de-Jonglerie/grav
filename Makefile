@@ -9,14 +9,14 @@ THEME_PATH := $(USER_PATH)/themes/afj
 subrepo-clean:
 	git subrepo clean --ALL
 
-user-pull: subrepo-clean
+user-pull:
 	git subrepo pull $(USER_PATH)
 
-user-push: subrepo-clean
+user-push:
 	git subrepo push $(USER_PATH)
 
-theme-pull: subrepo-clean
+theme-pull:
 	git subrepo pull $(THEME_PATH)
 
-theme-push: subrepo-clean
+theme-push:
 	git subrepo push $(THEME_PATH)
