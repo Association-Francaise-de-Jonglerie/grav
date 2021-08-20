@@ -28,6 +28,8 @@ Voici la liste des liens vers les associations organisatrices de conventions de 
 
 [Convention Arts du Cirque (CAC) / Belgique](https://www.facebook.com/convention.CAC/?target=_blank)
 
+[Des biles et des Balles / Doubitchou / Belfort](https://business.facebook.com/Des-Biles-et-des-Balles-242154706510446/?target=_blank)
+
 [École De Cirque Zmam / Roca’balle / Rocalet (Vabre)](https://www.facebook.com/events/lieu-dit-rocalet-81330-vabre-france/rocaballe/306579483942477/?target=_blank)
 
 [Jongle & Rit / Bigoud’N’Jongle / Vezin le coquet](https://jongleetrit.wordpress.com/?target=_blank)
@@ -59,11 +61,17 @@ Zmam / Roca Balles / Vabre
 
 [Ajil / Au Bout Des Doigts (ABDD) / Lyon](http://ajil-asso.fr/?target=_blank)
 
+[A Deux Mains / Prends ton pied des 2 mains / Vernoux en Vivarais](https://jongla2mains.wordpress.com/?target=_blank)
+
 [Association Parisienne de Jonglerie (APJ) / Paris](https://www.asso-apj.fr/?target=_blank)
 
 [Association Trac / Jonglissimo / Reims](http://www.asso-trac.fr/?target=_blank)
 
+Cie Daruma / Jongle avec des mirabelles sur les balcons / Mirabel et blacons
+
 Circomobile / Nâ Rozho / Chatelard 
+
+[Cirkouest / West Coast Convention / Saint Viaud](https://www.cirkouest.fr/accueil/actualite/les-evenements-et-projets/weastcoast-convention/?target=_blank)
 
 [Extrême Jonglerie /Jongle en tongs / Marseille](http://www.extreme-jonglerie.com/?target=_blank)
 
@@ -72,8 +80,6 @@ FestiFlam / Faya Festival / Poussan
 [Fo Ksa Bouge / Passe la jongle à tes voisins / Voisins-le-Bretonneux](http://passelajongle.blogspot.com/?target=_blank)
 
 [Graulich convention feu / Rodemack](https://www.facebook.com/GraulichConventionFeu/?target=_blank)
-
-[Jongla2mains / Chalencon](https://jongla2mains.wordpress.com/?target=_blank)
 
 [Jonglagogo / Troyes](http://jonglagogo.fr/?target=_blank)
 
@@ -85,6 +91,8 @@ Les Ballpapas / Balles Habiles / Belleville
 
 Les fous de la jongle / Saint-Hilaire-du-Thouvet 
 
+Les Jongleurs d'Oriant / Oriant’à Jongle / Larmor-Plage 
+
 [Les Nazes / Glühwein / Wesserling](https://www.les-nazes.com/gluhwein.html?target=_blank)
 
 Les Tapirroulants / Hopla / Strasbourg
@@ -95,6 +103,6 @@ Les Tapirroulants / Hopla / Strasbourg
 
 Quo Faï Dau Be / St Priest Ligoure
 
-Saquagrin / Jongl libre / Orléans
+Saquagrin / Le Jonglibre / Orléans
 
 [Tartajongle / Basse Normandie](https://www.tartajongle.org/?target=_blank)
