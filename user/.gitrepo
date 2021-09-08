@@ -6,7 +6,7 @@
 [subrepo]
 	remote = git@github.com:team-afj/grav-user.git
 	branch = main
-	commit = 3c82b8b257a060e162cec4c95cc742ce5ee544b9
+	commit = 83c698bb0e4aed785e840b4a87b9f34f25d1a274
 	method = merge
 	cmdver = 0.4.3
-	parent = 31442041110bd682e531bd109c7402a4fba0ea6f
+	parent = 64cf439b863b2b5762d201d195d337a8cfe9d862
