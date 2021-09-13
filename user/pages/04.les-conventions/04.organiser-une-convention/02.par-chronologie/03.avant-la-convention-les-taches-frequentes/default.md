@@ -21,7 +21,7 @@ solliciter (j’ai essayé de les classer par thématiques) :
 - Culturelle : Direction Régionale des Affaire Culturelles
 - À chaque fois, prenez le temps de regarder les critères d’attribution. Par exemple, la mixité amateurs/professionnelle, l’accueil des personnes en situation de handicap…
 
-### Le bar et la bière
+### [Le bar et la bière](../../aspects-thematiques/le-bar)
 - Commander chez un ou plusieurs fournisseurs la boisson alcoolisée et non-alcoolisée, en fonction du nombre de participants. Souvent, les futs non ouverts sont repris, il est plus rare d’avoir ce genre d’accord pour les softs.
 - Définir les prix de vente en fonction des prix d'achat + faire des panneaux d'affichage avec les prix.
 - Monter une équipe de bénévoles pour servir au bar pendant la durée de la convention.
@@ -53,7 +53,7 @@ solliciter (j’ai essayé de les classer par thématiques) :
 Il est important que les organisateurs pensent à prévoir la renegade (lieu, matériel, bière ou ticket boisson, place dans le programme, pour qu’elle ne soit pas en même temps qu’un autre spectacle ou concert. Par contre, il appartient aux jongleurs de l’organiser, la présenter, faire le DJ. La renegade ne doit pas être inscrite dans le programme de la convention. Il faut éviter que du public non-avertis vienne à ce spectacle comme ils iraient à un autre spectacle. C’est préjudiciable aussi bien pour eux, que pour les personnes qui passent sur scène. De plus, c’est un spectacle avec de la musique amplifiée de nuit, il faut penser aux nuisances sonores.
 Remarque : il n’est pas permis de prendre de photo, ni de vidéo des renegades… Certains numéros sont plutôt osés et des clichés peuvent desservir les artistes dans un futur proche ou lointain… Ce qui se passe en renegade doit rester en renegade !  En présence de caméra ou d’appareil photo, le spectacle n’est pas le même.
 
-### L’espace feu
+### [L’espace feu](../../aspects-thematiques/espace-feu)
 
 Différentes conventions ont différentes politiques sur la pratique du feu. Certaine (pour des raisons d'assurance) sont allés jusqu’à l'interdire. La plupart des conventions ont des zones de feu ouvertes à des moments définis, avec des évaluations des risques et un personnel qualifié en charge. Pour se faire :
 - Prévoir un espace délimité à l’extérieur

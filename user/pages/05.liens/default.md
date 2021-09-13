@@ -2,6 +2,8 @@
 title: 'Liens et contacts'
 published: true
 media_order: 'Reference litterature scientifique autour de la jonglerie.pdf'
+metadata:
+    description: 'Page dédiée à des liens vers des sites web de jonglage diversifés (vidéos de jongle, magazines, calendrier internationaux des conventions, sites spécialisés en balles, massues, diabolos, yoyo, hoop, siteswaps, spinning, flowarts... et encore bien d''autres choses). '
 ---
 
 ## Liens
@@ -26,6 +28,7 @@ l'adresse [afj.jonglerie@gmail.com](mailto:afj.jonglerie@gmail.com).
 ### Sites généralistes anglophones et autres langues
 
 - [Association Européenne de Jonglerie (EJA)](https://www.eja.net/?target=_blank)
+- [Circus Talk](https://circustalk.com/?target=_blank)
 - [Eyco - European Youth Cricus Organization](https://www.eyco.org/?target=_blank)
 - [Giocoleria.org](https://www.giocoleria.org/en/?target=_blank)
 - [International Jugglers’ Association (IJA)](https://www.juggle.org/?target=_blank)
@@ -40,12 +43,14 @@ l'adresse [afj.jonglerie@gmail.com](mailto:afj.jonglerie@gmail.com).
 
 - [Acropedia](https://www.acropedia.org/?target=_blank)
 - [Art of diabolo](http://www.artofdiabolo.com/?target=_blank)
+- [Bravo Juggling - Devilsticks and juggling (Youtube)](https://www.youtube.com/channel/UCoNr2JfSgh43bJEvH9dkcEw?target=_blank)
 - [Fight Night Combat](https://www.fightnightcombat.com/index.html?target=_blank)
 - [FlowArts.org](https://flowarts.org/?target=_blank)
 - [FlowArts Institute](https://flowartsinstitute.com/juggle-vs-flow/?target=_blank)
 - [Home of poï](https://www.homeofpoi.com/fr/?target=_blank)
 - [Jongle avec tes mains](http://jongle.avec.tes.main.free.fr/?target=_blank)
 - [Jongl.de](http://www.jongl.de/?target=_blank)
+- [Juggling for beginners](https://juggling-for-beginners.com/?target=_blank)
 - [Juggling Lab](https://jugglinglab.org/?target=_blank)
 - [Juggloid](http://www.juggloid.com/?target=_blank)
 - [Kendama France](https://www.kendama-france.com/?target=_blank)
@@ -54,6 +59,7 @@ l'adresse [afj.jonglerie@gmail.com](mailto:afj.jonglerie@gmail.com).
 - [Roulemaboule](https://roulemabouleasso.wordpress.com/2018/09/11/liens/?target=_blank)
 - [Siteswap.org](http://www.siteswap.org/?target=_blank)
 - [Spin More Poï](https://www.spinmorepoi.com/?target=_blank)
+- [The World Juggling Federation (WJF)](https://www.thewjf.com/?target=_blank)
 - [VisualSpinner3D](http://infiniteperplexity.github.io/visual-spinner-3d/?target=_blank)
 - [Yoyo.fr](https://www.yoyos.fr/?target=_blank)
 
@@ -111,10 +117,10 @@ l'adresse [afj.jonglerie@gmail.com](mailto:afj.jonglerie@gmail.com).
 
 ### La jonglerie dans la recherche scientifique et en conférence
 
-- [Référence littérature scientifique autour de la jonglerie.pdf](Reference%20litterature%20scientifique%20autour%20de%20la%20jonglerie.pdf)
-- [Catching Inspiration: Juggling, Art, and Your Mind, Amit Khandhadia, TEDxVanderbiltUniversity](https://www.youtube.com/watch?v=3aVVq-a86dA/?target=_blank)
-- [Juggling: The power of ups and downs, Paul Miller, TEDxCreativeCoast](https://www.youtube.com/watch?v=8Cs0dbJccIA/?target=_blank)
-- [Poi Research Documentary: A Spin on Ageing](https://www.youtube.com/watch?v=l7oM5raj-MI/?target=_blank)
-- [The neuroscience of juggling, Mickey Choma, TEDxWeizmannInstitute](https://www.youtube.com/watch?v=Sttw2PxncIE/?target=_blank)
-- [Tricks To Happiness, Frank Olivier, TEDxSonomaCounty](https://www.youtube.com/watch?v=bKuWy5QZtew/?target=_blank)
-- [World class juggling, The Raspyni Brothers TEDxMarin](https://www.youtube.com/watch?v=tKv3D3N7jnU/?target=_blank)
+- [Référence littérature scientifique autour de la jonglerie.pdf](Reference%20litterature%20scientifique%20autour%20de%20la%20jonglerie.pdf?target=_blank)
+- [Catching Inspiration: Juggling, Art, and Your Mind, Amit Khandhadia, TEDxVanderbiltUniversity](https://www.youtube.com/watch?v=3aVVq-a86dA&target=_blank)
+- [Juggling: The power of ups and downs, Paul Miller, TEDxCreativeCoast](https://www.youtube.com/watch?v=8Cs0dbJccIA&target=_blank)
+- [Poi Research Documentary: A Spin on Ageing](https://www.youtube.com/watch?v=l7oM5raj-MI&target=_blank)
+- [The neuroscience of juggling, Mickey Choma, TEDxWeizmannInstitute](https://www.youtube.com/watch?v=Sttw2PxncIE&target=_blank)
+- [Tricks To Happiness, Frank Olivier, TEDxSonomaCounty](https://www.youtube.com/watch?v=bKuWy5QZtew&target=_blank)
+- [World class juggling, The Raspyni Brothers TEDxMarin](https://www.youtube.com/watch?v=tKv3D3N7jnU&target=_blank)

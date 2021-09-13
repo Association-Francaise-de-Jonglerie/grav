@@ -128,24 +128,24 @@ Exemple de listing pour la scène téléchargeable en format Word: [check_list s
 
 Combien de personnes organisent, combien sont bénévoles (en amont ?, en aval ?) ; qui fait quoi ?...  
 Il s’agit de choisir la forme organisationnelle. Par exemple, on peut choisir de définir des référents par pôle :  
-- superviseur général (gestion du projet et de l’équipe, gestion des plannings organisateurs, bénévoles et volontaire, planning montage et démontage…)
+- superviseur général (gestion du projet et de l’équipe, gestion des plannings organisateurs, [bénévoles](../../aspects-thematiques/benevoles) et volontaire, planning montage et démontage…)
 - réunions (communication de la date, ordre du jour, compte rendu…)  
 - administratif et financier (subventions, bilan, autorisations...)
 - communication (mairie, journaliste, conventionniste…)
 - logistique & développement durable (site, électricité, coin pour les organisateurs, artistes et bénévoles, chapiteaux, tentes, barrières, services municipaux, chill-out, toilettes sèches, poubelles de tri, déchet, recyclage...) 
-- [décoration et signalétique](/les-conventions/organiser-une-convention/aspects-thematiques/la-decoration)
+- [décoration et signalétique](../../aspects-thematiques/la-decoration)
 - sécurité
 - technique scénique
 - plateau artistique
 - cuisine (récup en amont + menu + gestion en aval)
 - petit-déjeuner
 - [accueil](../../aspects-thematiques/accueil) des conventionnistes (préinscriptions, tarifs, badges, billetterie, goodies...)
-- buvette
+- [bar / buvette](../../aspects-thematiques/le-bar)
 - scène ouverte
 - renegade
 - espace feu 
 - workshop
-- [jeux de la jongle](/les-conventions/organiser-une-convention/aspects-thematiques/les-jeux-de-la-jongle) 
+- [jeux de la jongle](../../aspects-thematiques/les-jeux-de-la-jongle) 
 - musique et concerts
 - animation cirque des enfants
 - …
