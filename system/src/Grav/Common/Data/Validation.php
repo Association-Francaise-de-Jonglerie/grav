@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Common\Data
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -538,8 +538,10 @@ class Validation
 
         if (isset($params['step'])) {
             $step = (float)$params['step'];
+            // Count of how many steps we are above/below the minimum value.
+            $pos = ($value - $min) / $step;
 
-            return fmod($value - $min, $step) === 0.0;
+            return is_int(static::filterNumber($pos, $params, $field));
         }
 
         return true;
@@ -606,7 +608,7 @@ class Validation
      */
     public static function typeColor($value, array $params, array $field)
     {
-        return preg_match('/^\#[0-9a-fA-F]{3}[0-9a-fA-F]{3}?$/u', $value);
+        return (bool)preg_match('/^\#[0-9a-fA-F]{3}[0-9a-fA-F]{3}?$/u', $value);
     }
 
     /**
@@ -779,14 +781,22 @@ class Validation
         }
 
         // If creating new values is allowed, no further checks are needed.
-        if (!empty($field['selectize']['create'])) {
+        $validateOptions = $field['validate']['options'] ?? null;
+        if (!empty($field['selectize']['create']) || $validateOptions === 'ignore') {
             return true;
         }
 
         $options = $field['options'] ?? [];
         $use = $field['use'] ?? 'values';
 
-        if (empty($field['selectize']) || empty($field['multiple'])) {
+        if ($validateOptions) {
+            // Use custom options structure.
+            foreach ($options as &$option) {
+                $option = $option[$validateOptions] ?? null;
+            }
+            unset($option);
+            $options = array_values($options);
+        } elseif (empty($field['selectize']) || empty($field['multiple'])) {
             $options = array_keys($options);
         }
         if ($use === 'keys') {
@@ -806,7 +816,7 @@ class Validation
     {
         $value = static::filterArray($value, $params, $field);
 
-        return Utils::arrayUnflattenDotNotation($value);
+        return is_array($value) ? Utils::arrayUnflattenDotNotation($value) : null;
     }
 
     /**
@@ -1187,7 +1197,7 @@ class Validation
      */
     public static function filterItem_List($value, $params)
     {
-        return array_values(array_filter($value, function ($v) {
+        return array_values(array_filter($value, static function ($v) {
             return !empty($v);
         }));
     }

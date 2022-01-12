@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Common
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -143,7 +143,7 @@ class Plugins extends Iterator
                 $instance->setConfig($config);
                 // Register autoloader.
                 if (method_exists($instance, 'autoload')) {
-                    $instance->autoload();
+                    $instance->setAutoloader($instance->autoload());
                 }
                 // Register event listeners.
                 $events->addSubscriber($instance);

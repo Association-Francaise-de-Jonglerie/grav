@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Common\Service
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -179,7 +179,7 @@ class ConfigServiceProvider implements ServiceProviderInterface
      * @param string $folder_path
      * @return array
      */
-    private static function pluginFolderPaths($plugins, $folder_path)
+    protected static function pluginFolderPaths($plugins, $folder_path)
     {
         $paths = [];
 

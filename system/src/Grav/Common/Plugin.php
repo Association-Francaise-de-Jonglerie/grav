@@ -3,13 +3,14 @@
 /**
  * @package    Grav\Common
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
 namespace Grav\Common;
 
 use ArrayAccess;
+use Composer\Autoload\ClassLoader;
 use Grav\Common\Data\Blueprint;
 use Grav\Common\Data\Data;
 use Grav\Common\Page\Interfaces\PageInterface;
@@ -42,6 +43,8 @@ class Plugin implements EventSubscriberInterface, ArrayAccess
     protected $active = true;
     /** @var Blueprint|null */
     protected $blueprint;
+    /** @var ClassLoader|null */
+    protected $loader;
 
     /**
      * By default assign all methods as listeners using the default priority.
@@ -80,6 +83,24 @@ class Plugin implements EventSubscriberInterface, ArrayAccess
     }
 
     /**
+     * @return ClassLoader|null
+     * @internal
+     */
+    final public function getAutoloader(): ?ClassLoader
+    {
+        return $this->loader;
+    }
+
+    /**
+     * @param ClassLoader|null $loader
+     * @internal
+     */
+    final public function setAutoloader(?ClassLoader $loader): void
+    {
+        $this->loader = $loader;
+    }
+
+    /**
      * @param Config $config
      * @return $this
      */
@@ -97,7 +118,7 @@ class Plugin implements EventSubscriberInterface, ArrayAccess
      */
     public function config()
     {
-        return null !== $this->config ? $this->config["plugins.{$this->name}"] : [];
+        return $this->config["plugins.{$this->name}"] ?? [];
     }
 
     /**
@@ -206,6 +227,7 @@ class Plugin implements EventSubscriberInterface, ArrayAccess
      * @param string $offset  An offset to check for.
      * @return bool          Returns TRUE on success or FALSE on failure.
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         if ($offset === 'title') {
@@ -223,6 +245,7 @@ class Plugin implements EventSubscriberInterface, ArrayAccess
      * @param string $offset  The offset to retrieve.
      * @return mixed         Can return all value types.
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if ($offset === 'title') {
@@ -241,6 +264,7 @@ class Plugin implements EventSubscriberInterface, ArrayAccess
      * @param mixed $value   The value to set.
      * @throws LogicException
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         throw new LogicException(__CLASS__ . ' blueprints cannot be modified.');
@@ -252,6 +276,7 @@ class Plugin implements EventSubscriberInterface, ArrayAccess
      * @param string $offset  The offset to unset.
      * @throws LogicException
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         throw new LogicException(__CLASS__ . ' blueprints cannot be modified.');
@@ -387,6 +412,30 @@ class Plugin implements EventSubscriberInterface, ArrayAccess
         unset($file);
 
         return true;
+    }
+
+    public static function inheritedConfigOption(string $plugin, string $var, PageInterface $page = null, $default = null)
+    {
+        if (Utils::isAdminPlugin()) {
+            $page = Grav::instance()['admin']->page() ?? null;
+        } else {
+            $page = $page ?? Grav::instance()['page'] ?? null;
+        }
+
+        // Try to find var in the page headers
+        if ($page instanceof PageInterface && $page->exists()) {
+            // Loop over pages and look for header vars
+            while ($page && !$page->root()) {
+                $header = new Data((array)$page->header());
+                $value = $header->get("$plugin.$var");
+                if (isset($value)) {
+                    return $value;
+                }
+                $page = $page->parent();
+            }
+        }
+
+        return Grav::instance()['config']->get("plugins.$plugin.$var", $default);
     }
 
     /**

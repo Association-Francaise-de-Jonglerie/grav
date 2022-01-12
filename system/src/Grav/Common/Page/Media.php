@@ -3,13 +3,14 @@
 /**
  * @package    Grav\Common\Page
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
 namespace Grav\Common\Page;
 
 use FilesystemIterator;
+use Grav\Common\Config\Config;
 use Grav\Common\Grav;
 use Grav\Common\Media\Interfaces\MediaObjectInterface;
 use Grav\Common\Yaml;
@@ -63,6 +64,7 @@ class Media extends AbstractMedia
      * @param string $offset
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return parent::offsetExists($offset) ?: isset(static::$global[$offset]);
@@ -72,6 +74,7 @@ class Media extends AbstractMedia
      * @param string $offset
      * @return MediaObjectInterface|null
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return parent::offsetGet($offset) ?: static::$global[$offset];
@@ -84,17 +87,23 @@ class Media extends AbstractMedia
      */
     protected function init()
     {
-        /** @var UniformResourceLocator $locator */
-        $locator = Grav::instance()['locator'];
-        $config = Grav::instance()['config'];
-        $exif_reader = isset(Grav::instance()['exif']) ? Grav::instance()['exif']->getReader() : false;
-        $media_types = array_keys(Grav::instance()['config']->get('media.types'));
         $path = $this->getPath();
 
         // Handle special cases where page doesn't exist in filesystem.
         if (!$path || !is_dir($path)) {
             return;
         }
+
+        $grav = Grav::instance();
+
+        /** @var UniformResourceLocator $locator */
+        $locator = $grav['locator'];
+
+        /** @var Config $config */
+        $config = $grav['config'];
+
+        $exif_reader = isset($grav['exif']) ? $grav['exif']->getReader() : null;
+        $media_types = array_keys($config->get('media.types', []));
 
         $iterator = new FilesystemIterator($path, FilesystemIterator::UNIX_PATHS | FilesystemIterator::SKIP_DOTS);
 

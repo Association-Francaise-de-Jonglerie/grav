@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Console\Gpm
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -200,7 +200,6 @@ class IndexCommand extends GpmCommand
      */
     private function installed(Package $package): string
     {
-        $package   = $list[$package->slug] ?? $package;
         $type      = ucfirst(preg_replace('/s$/', '', $package->package_type));
         $method = 'is' . $type . 'Installed';
         $installed = $this->gpm->{$method}($package->slug);
@@ -214,7 +213,6 @@ class IndexCommand extends GpmCommand
      */
     private function enabled(Package $package): string
     {
-        $package   = $list[$package->slug] ?? $package;
         $type      = ucfirst(preg_replace('/s$/', '', $package->package_type));
         $method = 'is' . $type . 'Installed';
         $installed = $this->gpm->{$method}($package->slug);

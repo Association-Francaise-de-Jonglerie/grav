@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Common\Page
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -17,6 +17,7 @@ use Grav\Common\Media\Interfaces\MediaLinkInterface;
 use Grav\Common\Media\Traits\ImageLoadingTrait;
 use Grav\Common\Media\Traits\ImageMediaTrait;
 use Grav\Common\Utils;
+use Gregwar\Image\Image;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 use function func_get_args;
 use function in_array;
@@ -88,6 +89,7 @@ class ImageMedium extends Medium implements ImageMediaInterface, ImageManipulate
     /**
      * Also unset the image on destruct.
      */
+    #[\ReturnTypeWillChange]
     public function __destruct()
     {
         unset($this->image);
@@ -96,6 +98,7 @@ class ImageMedium extends Medium implements ImageMediaInterface, ImageManipulate
     /**
      * Also clone image.
      */
+    #[\ReturnTypeWillChange]
     public function __clone()
     {
         if ($this->image) {
@@ -246,12 +249,12 @@ class ImageMedium extends Medium implements ImageMediaInterface, ImageManipulate
         if ($this->saved_image_path && $this->auto_sizes) {
             if (!array_key_exists('height', $this->attributes) && !array_key_exists('width', $this->attributes)) {
                 $info = getimagesize($this->saved_image_path);
-                $width = intval($info[0]);
-                $height = intval($info[1]);
+                $width = (int)$info[0];
+                $height = (int)$info[1];
 
                 $scaling_factor = $this->retina_scale > 0 ? $this->retina_scale : 1;
-                $attributes['width'] = intval($width / $scaling_factor);
-                $attributes['height'] = intval($height / $scaling_factor);
+                $attributes['width'] = (int)($width / $scaling_factor);
+                $attributes['height'] = (int)($height / $scaling_factor);
 
                 if ($this->aspect_ratio) {
                     $style = ($attributes['style'] ?? ' ') . "--aspect-ratio: $width/$height;";
@@ -302,25 +305,102 @@ class ImageMedium extends Medium implements ImageMediaInterface, ImageManipulate
         return parent::lightbox($width, $height, $reset);
     }
 
+    /**
+     * @param string $enabled
+     * @return $this
+     */
     public function autoSizes($enabled = 'true')
     {
-        $enabled = $enabled === 'true' ?: false;
-        $this->auto_sizes = $enabled;
+        $this->auto_sizes = $enabled === 'true' ?: false;
 
         return $this;
     }
 
+    /**
+     * @param string $enabled
+     * @return $this
+     */
     public function aspectRatio($enabled = 'true')
     {
-        $enabled = $enabled === 'true' ?: false;
-        $this->aspect_ratio = $enabled;
+        $this->aspect_ratio = $enabled === 'true' ?: false;
 
         return $this;
     }
 
+    /**
+     * @param int $scale
+     * @return $this
+     */
     public function retinaScale($scale = 1)
     {
-        $this->retina_scale = intval($scale);
+        $this->retina_scale = (int)$scale;
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $image
+     * @param string|null $position
+     * @param int|float|null $scale
+     * @return $this
+     */
+    public function watermark($image = null, $position = null, $scale = null)
+    {
+        $grav = $this->getGrav();
+
+        $locator = $grav['locator'];
+        $config = $grav['config'];
+
+        $args = func_get_args();
+
+        $file = $args[0] ?? '1'; // using '1' because of markdown. doing ![](image.jpg?watermark) returns $args[0]='1';
+        $file = $file === '1' ? $config->get('system.images.watermark.image') : $args[0];
+
+        $watermark = $locator->findResource($file);
+        $watermark = ImageFile::open($watermark);
+
+        // Scaling operations
+        $scale     = ($scale ?? $config->get('system.images.watermark.scale', 100)) / 100;
+        $wwidth    = $this->get('width')  * $scale;
+        $wheight   = $this->get('height') * $scale;
+        $watermark->resize($wwidth, $wheight);
+
+        // Position operations
+        $position = !empty($args[1]) ? explode('-',  $args[1]) : ['center', 'center']; // todo change to config
+        $positionY = $position[0] ?? $config->get('system.images.watermark.position_y', 'center');
+        $positionX = $position[1] ?? $config->get('system.images.watermark.position_x', 'center');
+
+        switch ($positionY)
+        {
+            case 'top':
+                $positionY = 0;
+                break;
+
+            case 'bottom':
+                $positionY = $this->get('height')-$wheight;
+                break;
+
+            case 'center':
+                $positionY = ($this->get('height')/2) - ($wheight/2);
+                break;
+        }
+
+        switch ($positionX)
+        {
+            case 'left':
+                $positionX = 0;
+                break;
+
+            case 'right':
+                $positionX = $this->get('width')-$wwidth;
+                break;
+
+            case 'center':
+                $positionX = ($this->get('width')/2) - ($wwidth/2);
+                break;
+        }
+
+        $this->__call('merge', [$watermark,$positionX, $positionY]);
 
         return $this;
     }
@@ -344,7 +424,7 @@ class ImageMedium extends Medium implements ImageMediaInterface, ImageManipulate
      */
     public function addFrame(int $border = 10, string $color = '0x000000')
     {
-      if(is_int(intval($border)) && $border>0 && preg_match('/^0x[a-f0-9]{6}$/i', $color)) { // $border must be an integer and bigger than 0; $color must be formatted as an HEX value (0x??????).
+      if($border > 0 && preg_match('/^0x[a-f0-9]{6}$/i', $color)) { // $border must be an integer and bigger than 0; $color must be formatted as an HEX value (0x??????).
         $image = ImageFile::open($this->path());
       }
       else {
@@ -375,7 +455,7 @@ class ImageMedium extends Medium implements ImageMediaInterface, ImageManipulate
      * @param mixed $args
      * @return $this|mixed
      */
-    
+    #[\ReturnTypeWillChange]
     public function __call($method, $args)
     {
         if (!in_array($method, static::$magic_actions, true)) {

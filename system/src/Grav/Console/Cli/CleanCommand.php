@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Console\Cli
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -102,11 +102,10 @@ class CleanCommand extends Command
         'vendor/dragonmantank/cron-expression/composer.json',
         'vendor/dragonmantank/cron-expression/tests',
         'vendor/dragonmantank/cron-expression/CHANGELOG.md',
-        'vendor/enshrined/svg-sanitize/tests',
-        'vendor/enshrined/svg-sanitize/.gitignore',
-        'vendor/enshrined/svg-sanitize/.travis.yml',
-        'vendor/enshrined/svg-sanitize/composer.json',
-        'vendor/enshrined/svg-sanitize/phpunit.xml',
+        'vendor/rhukster/dom-sanitizer/tests',
+        'vendor/rhukster/dom-sanitizer/.gitignore',
+        'vendor/rhukster/dom-sanitizer/composer.json',
+        'vendor/rhukster/dom-sanitizer/composer.lock',
         'vendor/erusev/parsedown/composer.json',
         'vendor/erusev/parsedown/phpunit.xml.dist',
         'vendor/erusev/parsedown/.travis.yml',

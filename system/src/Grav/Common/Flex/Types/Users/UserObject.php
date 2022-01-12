@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * @package    Grav\Common\Flex
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -32,6 +32,7 @@ use Grav\Common\User\Interfaces\UserInterface;
 use Grav\Common\User\Traits\UserTrait;
 use Grav\Framework\File\Formatter\JsonFormatter;
 use Grav\Framework\File\Formatter\YamlFormatter;
+use Grav\Framework\Filesystem\Filesystem;
 use Grav\Framework\Flex\Flex;
 use Grav\Framework\Flex\FlexDirectory;
 use Grav\Framework\Flex\Storage\FileStorage;
@@ -78,6 +79,8 @@ class UserObject extends FlexObject implements UserInterface, Countable
 
     /** @var Closure|null */
     static public $authorizeCallable;
+    /** @var Closure|null */
+    static public $isAuthorizedCallable;
 
     /** @var array|null */
     protected $_uploads_original;
@@ -122,7 +125,8 @@ class UserObject extends FlexObject implements UserInterface, Countable
         // Define username if it's not set.
         if (!isset($elements['username'])) {
             $storageKey = $elements['__META']['storage_key'] ?? null;
-            if (null !== $storageKey && $key === $directory->getStorage()->normalizeKey($storageKey)) {
+            $storage = $directory->getStorage();
+            if (null !== $storageKey && method_exists($storage, 'normalizeKey') && $key === $storage->normalizeKey($storageKey)) {
                 $elements['username'] = $storageKey;
             } else {
                 $elements['username'] = $key;
@@ -135,6 +139,14 @@ class UserObject extends FlexObject implements UserInterface, Countable
         }
 
         parent::__construct($elements, $key, $directory, $validate);
+    }
+
+    public function __clone()
+    {
+        $this->_access = null;
+        $this->_groups = null;
+
+        parent::__clone();
     }
 
     /**
@@ -230,6 +242,22 @@ class UserObject extends FlexObject implements UserInterface, Countable
     }
 
     /**
+     * @param UserInterface|null $user
+     * @return bool
+     */
+    public function isMyself(?UserInterface $user = null): bool
+    {
+        if (null === $user) {
+            $user = $this->getActiveUser();
+            if ($user && !$user->authenticated) {
+                $user = null;
+            }
+        }
+
+        return $user && $this->username === $user->username;
+    }
+
+    /**
      * Checks user authorization to the action.
      *
      * @param  string $action
@@ -263,10 +291,11 @@ class UserObject extends FlexObject implements UserInterface, Countable
             }
         }
 
+        // Check custom application access.
         $authorizeCallable = static::$authorizeCallable;
         if ($authorizeCallable instanceof Closure) {
-            $authorizeCallable->bindTo($this);
-            $authorized = $authorizeCallable($action, $scope);
+            $callable = $authorizeCallable->bindTo($this, $this);
+            $authorized = $callable($action, $scope);
             if (is_bool($authorized)) {
                 return $authorized;
             }
@@ -279,13 +308,14 @@ class UserObject extends FlexObject implements UserInterface, Countable
             return $authorized;
         }
 
-        // If specific rule isn't hit, check if user is super user.
-        if ($access->authorize('admin.super') === true) {
-            return true;
+        // Check group access.
+        $authorized = $this->getGroups()->authorize($action, $scope);
+        if (is_bool($authorized)) {
+            return $authorized;
         }
 
-        // Check group access.
-        return $this->getGroups()->authorize($action, $scope);
+        // If any specific rule isn't hit, check if user is a superuser.
+        return $access->authorize('admin.super') === true;
     }
 
     /**
@@ -303,6 +333,14 @@ class UserObject extends FlexObject implements UserInterface, Countable
         }
 
         return $value;
+    }
+
+    /**
+     * @return UserGroupIndex
+     */
+    public function getRoles(): UserGroupIndex
+    {
+        return $this->getGroups();
     }
 
     /**
@@ -662,6 +700,16 @@ class UserObject extends FlexObject implements UserInterface, Countable
      */
     protected function isAuthorizedOverride(UserInterface $user, string $action, string $scope, bool $isMe = false): ?bool
     {
+        // Check custom application access.
+        $isAuthorizedCallable = static::$isAuthorizedCallable;
+        if ($isAuthorizedCallable instanceof Closure) {
+            $callable = $isAuthorizedCallable->bindTo($this, $this);
+            $authorized = $callable($user, $action, $scope, $isMe);
+            if (is_bool($authorized)) {
+                return $authorized;
+            }
+        }
+
         if ($user instanceof self && $user->getStorageKey() === $this->getStorageKey()) {
             // User cannot delete his own account, otherwise he has full access.
             return $action !== 'delete';
@@ -702,6 +750,7 @@ class UserObject extends FlexObject implements UserInterface, Countable
 
     /**
      * @param array $files
+     * @return void
      */
     protected function setUpdatedMedia(array $files): void
     {
@@ -713,9 +762,12 @@ class UserObject extends FlexObject implements UserInterface, Countable
             return;
         }
 
+        $filesystem = Filesystem::getInstance(false);
+
         $list = [];
         $list_original = [];
         foreach ($files as $field => $group) {
+            // Ignore files without a field.
             if ($field === '') {
                 continue;
             }
@@ -737,7 +789,7 @@ class UserObject extends FlexObject implements UserInterface, Countable
                 }
 
                 if ($file) {
-                    // Check file upload against media limits.
+                    // Check file upload against media limits (except for max size).
                     $filename = $media->checkUploadedFile($file, $filename, ['filesize' => 0] + $settings);
                 }
 
@@ -761,15 +813,19 @@ class UserObject extends FlexObject implements UserInterface, Countable
                     continue;
                 }
 
+                // Calculate path without the retina scaling factor.
+                $realpath = $filesystem->pathname($filepath) . str_replace(['@3x', '@2x'], '', basename($filepath));
+
                 $list[$filename] = [$file, $settings];
 
+                $path = str_replace('.', "\n", $field);
                 if (null !== $data) {
                     $data['name'] = $filename;
                     $data['path'] = $filepath;
 
-                    $this->setNestedProperty("{$field}\n{$filepath}", $data, "\n");
+                    $this->setNestedProperty("{$path}\n{$realpath}", $data, "\n");
                 } else {
-                    $this->unsetNestedProperty("{$field}\n{$filepath}", "\n");
+                    $this->unsetNestedProperty("{$path}\n{$realpath}", "\n");
                 }
             }
         }
@@ -869,7 +925,9 @@ class UserObject extends FlexObject implements UserInterface, Countable
     protected function getGroups()
     {
         if (null === $this->_groups) {
-            $this->_groups = $this->getUserGroups()->select((array)$this->getProperty('groups'));
+            /** @var UserGroupIndex $groups */
+            $groups = $this->getUserGroups()->select((array)$this->getProperty('groups'));
+            $this->_groups = $groups;
         }
 
         return $this->_groups;
@@ -881,7 +939,7 @@ class UserObject extends FlexObject implements UserInterface, Countable
     protected function getAccess(): Access
     {
         if (null === $this->_access) {
-            $this->getProperty('access');
+            $this->_access = new Access($this->getProperty('access'));
         }
 
         return $this->_access;
@@ -896,8 +954,6 @@ class UserObject extends FlexObject implements UserInterface, Countable
         if (!$value instanceof Access) {
             $value = new Access($value);
         }
-
-        $this->_access = $value;
 
         return $value->jsonSerialize();
     }

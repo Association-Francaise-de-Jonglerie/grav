@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Common\Filesystem
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -197,7 +197,7 @@ abstract class Folder
      * Shift first directory out of the path.
      *
      * @param string $path
-     * @return string
+     * @return string|null
      */
     public static function shift(&$path)
     {
@@ -371,7 +371,7 @@ abstract class Folder
             return;
         }
 
-        if (strpos($target, $source) === 0) {
+        if (strpos($target, $source . '/') === 0) {
             throw new RuntimeException('Cannot move folder to itself');
         }
 
@@ -417,7 +417,8 @@ abstract class Folder
 
         if (!$success) {
             $error = error_get_last();
-            throw new RuntimeException($error['message']);
+
+            throw new RuntimeException($error['message'] ?? 'Unknown error');
         }
 
         // Make sure that the change will be detected when caching.
@@ -512,7 +513,7 @@ abstract class Folder
         }
         $directories = glob($directory . '/*', GLOB_ONLYDIR);
 
-        return count($directories);
+        return $directories ? count($directories) : false;
     }
 
     /**
@@ -529,7 +530,8 @@ abstract class Folder
         }
 
         // Go through all items in filesystem and recursively remove everything.
-        $files = array_diff(scandir($folder, SCANDIR_SORT_NONE), array('.', '..'));
+        $files = scandir($folder, SCANDIR_SORT_NONE);
+        $files = $files ? array_diff($files, ['.', '..']) : [];
         foreach ($files as $file) {
             $path = "{$folder}/{$file}";
             is_dir($path) ? self::doDelete($path) : @unlink($path);

@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Common\Media
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -108,7 +108,7 @@ trait MediaUploadTrait
      *
      * @param array $metadata
      * @param array|null $settings
-     * @return string|null
+     * @return string
      * @throws RuntimeException
      */
     public function checkFileMetadata(array $metadata, string $filename = null, array $settings = null): string

@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Common\Page
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -84,7 +84,7 @@ class Page implements PageInterface
     protected $unpublish_date;
     /** @var string */
     protected $slug;
-    /** @var string */
+    /** @var string|null */
     protected $route;
     /** @var string|null */
     protected $raw_route;
@@ -216,6 +216,26 @@ class Page implements PageInterface
         $this->urlExtension();
 
         return $this;
+    }
+
+    #[\ReturnTypeWillChange]
+    public function __clone()
+    {
+        $this->initialized = false;
+        $this->header = $this->header ? clone $this->header : null;
+    }
+
+    /**
+     * @return void
+     */
+    public function initialize(): void
+    {
+        if (!$this->initialized) {
+            $this->initialized = true;
+            $this->route = null;
+            $this->raw_route = null;
+            $this->_forms = null;
+        }
     }
 
     /**
@@ -368,7 +388,7 @@ class Page implements PageInterface
      * Gets and Sets the header based on the YAML configuration at the top of the .md file
      *
      * @param  object|array|null $var a YAML object representing the configuration for the file
-     * @return object      the current YAML configuration
+     * @return \stdClass      the current YAML configuration
      */
     public function header($var = null)
     {
@@ -975,7 +995,7 @@ class Page implements PageInterface
     /**
      * Needed by the onPageContentProcessed event to set the raw page content
      *
-     * @param string $content
+     * @param string|null $content
      * @return void
      */
     public function setRawContent($content)
@@ -1225,6 +1245,17 @@ class Page implements PageInterface
         }
 
         return $blueprint;
+    }
+
+    /**
+     * Returns the blueprint from the page.
+     *
+     * @param string $name Not used.
+     * @return Blueprint Returns a Blueprint.
+     */
+    public function getBlueprint(string $name = '')
+    {
+        return $this->blueprints();
     }
 
     /**
@@ -2274,11 +2305,11 @@ class Page implements PageInterface
     {
         if ($var !== null) {
             // make sure first level are arrays
-            array_walk($var, function (&$value) {
+            array_walk($var, static function (&$value) {
                 $value = (array) $value;
             });
             // make sure all values are strings
-            array_walk_recursive($var, function (&$value) {
+            array_walk_recursive($var, static function (&$value) {
                 $value = (string) $value;
             });
             $this->taxonomy = $var;

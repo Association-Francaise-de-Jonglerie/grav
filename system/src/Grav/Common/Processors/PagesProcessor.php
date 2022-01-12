@@ -3,13 +3,14 @@
 /**
  * @package    Grav\Common\Processors
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
 namespace Grav\Common\Processors;
 
 use Grav\Common\Page\Interfaces\PageInterface;
+use Grav\Framework\RequestHandler\Exception\RequestException;
 use Grav\Plugin\Form\Forms;
 use RocketTheme\Toolbox\Event\Event;
 use Psr\Http\Message\ResponseInterface;
@@ -41,15 +42,38 @@ class PagesProcessor extends ProcessorBase
         $this->container['debugger']->addMessage($this->container['cache']->getCacheStatus());
 
         $this->container['pages']->init();
-        $this->container->fireEvent('onPagesInitialized', new Event(['pages' => $this->container['pages']]));
-        $this->container->fireEvent('onPageInitialized', new Event(['page' => $this->container['page']]));
+
+        $route = $this->container['route'];
+
+        $this->container->fireEvent('onPagesInitialized', new Event(
+            [
+                'pages' => $this->container['pages'],
+                'route' => $route,
+                'request' => $request
+            ]
+        ));
+        $this->container->fireEvent('onPageInitialized', new Event(
+            [
+                'page' => $this->container['page'],
+                'route' => $route,
+                'request' => $request
+            ]
+        ));
 
         /** @var PageInterface $page */
         $page = $this->container['page'];
 
         if (!$page->routable()) {
+            $exception = new RequestException($request, 'Page Not Found', 404);
             // If no page found, fire event
-            $event = new Event(['page' => $page]);
+            $event = new Event([
+                'page' => $page,
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage(),
+                'exception' => $exception,
+                'route' => $route,
+                'request' => $request
+            ]);
             $event->page = null;
             $event = $this->container->fireEvent('onPageNotFound', $event);
 

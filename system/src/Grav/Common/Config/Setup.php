@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Common\Config
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -400,8 +400,12 @@ class Setup extends Data
                 $this->initializeLocator($locator);
             }
 
-            // Create security.yaml if it doesn't exist.
-            $filename = $locator->findResource(static::$securityFile, true, true);
+            // Create security.yaml salt if it doesn't exist into existing configuration environment if possible.
+            $securityFile = basename(static::$securityFile);
+            $securityFolder = substr(static::$securityFile, 0, -\strlen($securityFile));
+            $securityFolder = $locator->findResource($securityFolder, true) ?: $locator->findResource($securityFolder, true, true);
+            $filename = "{$securityFolder}/{$securityFile}";
+
             $security_file = CompiledYamlFile::instance($filename);
             $security_content = (array)$security_file->content();
 

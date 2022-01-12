@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Common\Assets
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -122,7 +122,7 @@ class Pipeline extends PropertyObject
 
         // Compute uid based on assets and timestamp
         $json_assets = json_encode($assets);
-        $uid = md5($json_assets . $this->css_minify . $this->css_rewrite . $group);
+        $uid = md5($json_assets . (int)$this->css_minify . (int)$this->css_rewrite . $group);
         $file = $uid . '.css';
         $relative_path = "{$this->base_url}{$this->assets_url}/{$file}";
 
@@ -254,7 +254,7 @@ class Pipeline extends PropertyObject
                 $old_url = ltrim($old_url, '/');
             }
 
-            $new_url = ($local ? $this->base_url: '') . $old_url;
+            $new_url = ($local ? $this->base_url : '') . $old_url;
 
             return str_replace($matches[2], $new_url, $matches[0]);
         }, $file);

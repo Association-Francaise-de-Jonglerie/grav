@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * @package    Grav\Common\Flex
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -62,7 +62,7 @@ class UserIndex extends FlexIndex implements UserCollectionInterface
      * @param FlexStorageInterface $storage
      * @return void
      */
-    public static function updateObjectMeta(array &$meta, array $data, FlexStorageInterface $storage)
+    public static function updateObjectMeta(array &$meta, array $data, FlexStorageInterface $storage): void
     {
         // Username can also be number and stored as such.
         $key = (string)($data['username'] ?? $meta['key'] ?? $meta['storage_key']);
@@ -164,7 +164,7 @@ class UserIndex extends FlexIndex implements UserCollectionInterface
      */
     protected static function filterUsername(string $key, FlexStorageInterface $storage): string
     {
-        return $storage->normalizeKey($key);
+        return method_exists($storage, 'normalizeKey') ? $storage->normalizeKey($key) : $key;
     }
 
     /**
@@ -187,7 +187,7 @@ class UserIndex extends FlexIndex implements UserCollectionInterface
      * @param array $updated
      * @param array $removed
      */
-    protected static function onChanges(array $entries, array $added, array $updated, array $removed)
+    protected static function onChanges(array $entries, array $added, array $updated, array $removed): void
     {
         $message = sprintf('Flex: User index updated, %d objects (%d added, %d updated, %d removed).', count($entries), count($added), count($updated), count($removed));
 

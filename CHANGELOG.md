@@ -1,3 +1,119 @@
+# v1.7.26.1
+## 01/04/2022
+
+3. [](#bugfix)
+   * Fixed `UserObject::getAccess()` after cloning the object
+
+# v1.7.26
+## 01/03/2022
+
+1. [](#new)
+    * Made `Grav::redirect()` to accept `Route` class
+    * Added `translated()` method to `PageTranslateInterface`
+    * Added second parameter to `UserObject::isMyself()` method
+    * Added `UserObject::$isAuthorizedCallable` to allow `$user->isAuthorized()` customization
+    * Use secure session cookies in HTTPS by default (`system.session.secure_https: true`)
+    * Added new `Plugin::inheritedConfigOption()` function to access plugin specific functions for page overrides
+2. [](#improved)
+   * Upgraded vendor libs for PHP 8.1 compatibility
+   * Upgraded to **composer v2.1.14** for PHP 8.1 compatibility
+   * Added third `$name` parameter to `Blueprint::flattenData()` method, useful for flattening repeating data
+   * `ControllerResponseTrait`: Redirect response should be json if the extension is .json
+   * When symlinking Grav install, include also tests
+   * Updated copyright year to `2022`
+3. [](#bugfix)
+   * Fixed bad key lookup in `FlexRelatedDirectoryTrait::getCollectionByProperty()`
+   * Fixed RequestHandlers `NotFoundException` having empty request
+   * Block `.json` files in web server configs
+   * Disabled pretty debug info for Flex as it slows down Twig rendering
+   * Fixed Twig being very slow when template overrides do not exist
+   * Fixed `UserObject::$authorizeCallable` binding to the user object
+   * Fixed `FlexIndex::call()` to return null instead of failing to call undefined method
+   * Fixed Flex directory configuration creating environment configuration when it should not
+
+# v1.7.25
+## 11/16/2021
+
+1. [](#new)
+    * Updated phpstan to v1.0
+    * Added `FlexObject::getDiff()` to see difference to the saved object
+2. [](#improved)
+    * Use Symfony `dump` instead of PHP's `vardump` in side the `{{ vardump(x) }}` Twig vardump function
+    * Added `route` and `request` to `onPagesInitialized` event
+    * Improved page cloning, added method `Page::initialize()`
+    * Improved `FlexObject::getChanges()`: return changed lists and arrays as whole instead of just changed keys/values
+    * Improved form validation JSON responses to contain list of failed fields with their error messages
+    * Improved redirects: send redirect response in JSON if the request was in JSON
+3. [](#bugfix)
+    * Fixed path traversal vulnerability when using `bin/grav server`
+    * Fixed unescaped error messages in JSON error responses
+    * Fixed `|t(variable)` twig filter in admin
+    * Fixed `FlexObject::getChanges()` always returning empty array
+    * Fixed form validation exceptions to use `400 Bad Request` instead of `500 Internal Server Error`
+
+# v1.7.24
+## 10/26/2021
+
+1. [](#new)
+    * Added support for image watermarks
+    * Added support to disable a form, making it readonly
+2. [](#improved)
+    * Flex `$user->authorize()` now checks user groups before `admin.super`, allowing deny rules to work properly
+3. [](#bugfix)
+    * Fixed a bug in `PermissionsReader` in PHP 7.3
+    * Fixed `session_store_active` language option (#3464)
+    * Fixed deprecated warnings on `ArrayAccess` in PHP 8.1
+    * Fixed XSS detection with `&colon;`
+
+# v1.7.23
+## 09/29/2021
+
+1. [](#new)
+    * Added method `Pages::referrerRoute()` to get the referrer route and language
+    * Added true unique `Utils::uniqueId()` / `{{ unique_id() }}` utilities  with length, prefix, and suffix support
+    * Added `UserObject::isMyself()` method to check if flex user is currently logged in
+    * Added support for custom form field options validation with `validate: options: key|ignore`
+2. [](#improved)
+   * Replaced GPL `SVG-Sanitizer` with MIT licensed `DOM-Sanitizer`
+   * `Uri::referrer()` now accepts third parameter, if set to `true`, it returns route without base or language code [#3411](https://github.com/getgrav/grav/issues/3411)
+   * Updated vendor libs with latest
+   * Updated with latest language strings via Crowdin.com
+3. [](#bugfix)
+    * Fixed `Folder::move()` throwing an error when target folder is changed by only appending characters to the end [#3445](https://github.com/getgrav/grav/issues/3445)
+    * Fixed some phpstan issues (all code back to level 1, Framework level 3)
+    * Fixed form reset causing image uploads to fail when using Flex
+
+# v1.7.22
+## 09/16/2021
+
+1. [](#new)
+    * Register plugin autoloaders into plugin objects
+2. [](#improved)
+    * Improve Twig 2 compatibility
+    * Update to customized version of Twig DeferredExtension (Twig 1/2 compatible)
+3. [](#bugfix)
+    * Fixed conflicting `$_original` variable in `Flex Pages`
+
+# v1.7.21
+## 09/14/2021
+
+1. [](#new)
+    * Added `|yaml` filter to convert input to YAML
+    * Added `route` and `request` to `onPageNotFound` event
+    * Added file upload/remove support for `Flex Forms`
+    * Added support for `flex-required@: not exists` and `flex-required@: '!exists'` in blueprints
+    * Added `$object->getOriginalData()` to get flex objects data before it was modified with `update()`
+    * Throwing exceptions from Twig templates fires `onDisplayErrorPage.[code]` event allowing better error pages
+2. [](#improved)
+    * Use a simplified text-based `cron` field for scheduler
+    * Add timestamp to logging output of scheduler jobs to see when they ran
+3. [](#bugfix)
+    * Fixed escaping in PageIndex::getLevelListing()
+    * Fixed validation of `number` type [#3433](https://github.com/getgrav/grav/issues/3433)
+    * Fixed excessive `security.yaml` file creation [#3432](https://github.com/getgrav/grav/issues/3432)
+    * Fixed incorrect port :0 with nginx unix socket setup [#3439](https://github.com/getgrav/grav/issues/3439)
+    * Fixed `Session::setFlashCookieObject()` to use the same options as the main session cookie
+
 # v1.7.20
 ## 09/01/2021
 

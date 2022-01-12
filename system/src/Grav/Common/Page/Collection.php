@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Common\Page
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -27,6 +27,7 @@ use function is_string;
 /**
  * Class Collection
  * @package Grav\Common\Page
+ * @implements PageCollectionInterface<string,Page>
  */
 class Collection extends Iterator implements PageCollectionInterface
 {
@@ -47,7 +48,7 @@ class Collection extends Iterator implements PageCollectionInterface
         parent::__construct($items);
 
         $this->params = $params;
-        $this->pages = $pages ? $pages : Grav::instance()->offsetGet('pages');
+        $this->pages = $pages ?: Grav::instance()->offsetGet('pages');
     }
 
     /**
@@ -162,6 +163,7 @@ class Collection extends Iterator implements PageCollectionInterface
      *
      * @return PageInterface
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         $current = parent::key();
@@ -174,6 +176,7 @@ class Collection extends Iterator implements PageCollectionInterface
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         $current = parent::current();
@@ -187,6 +190,7 @@ class Collection extends Iterator implements PageCollectionInterface
      * @param string $offset
      * @return PageInterface|null
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->pages->get($offset) ?: null;

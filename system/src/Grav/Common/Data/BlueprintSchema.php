@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Common\Data
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -57,6 +57,15 @@ class BlueprintSchema extends BlueprintSchemaBase implements ExportInterface
     }
 
     /**
+     * @param string $name
+     * @return array|null
+     */
+    public function getNestedRules(string $name)
+    {
+        return $this->getNested($name);
+    }
+
+    /**
      * Validate data against blueprints.
      *
      * @param  array $data
@@ -74,7 +83,7 @@ class BlueprintSchema extends BlueprintSchemaBase implements ExportInterface
         }
 
         if (!empty($messages)) {
-            throw (new ValidationException())->setMessages($messages);
+            throw (new ValidationException('', 400))->setMessages($messages);
         }
     }
 
@@ -106,23 +115,29 @@ class BlueprintSchema extends BlueprintSchemaBase implements ExportInterface
     /**
      * Flatten data by using blueprints.
      *
-     * @param  array $data                  Data to be flattened.
-     * @param bool $includeAll
+     * @param array $data       Data to be flattened.
+     * @param bool $includeAll  True if undefined properties should also be included.
+     * @param string $name      Property which will be flattened, useful for flattening repeating data.
      * @return array
      */
-    public function flattenData(array $data, bool $includeAll = false)
+    public function flattenData(array $data, bool $includeAll = false, string $name = '')
     {
+        $prefix = $name !== '' ? $name . '.' : '';
+
         $list = [];
         if ($includeAll) {
-            foreach ($this->items as $key => $rules) {
+            $items = $name !== '' ? $this->getProperty($name)['fields'] ?? [] : $this->items;
+            foreach ($items as $key => $rules) {
                 $type = $rules['type'] ?? '';
                 if (!str_starts_with($type, '_') && !str_contains($key, '*')) {
-                    $list[$key] = null;
+                    $list[$prefix . $key] = null;
                 }
             }
         }
 
-        return array_replace($list, $this->flattenArray($data, $this->nested, ''));
+        $nested = $this->getNestedRules($name);
+
+        return array_replace($list, $this->flattenArray($data, $nested, $prefix));
     }
 
     /**
@@ -190,7 +205,7 @@ class BlueprintSchema extends BlueprintSchemaBase implements ExportInterface
                 /** @var Config $config */
                 $config = Grav::instance()['config'];
                 if (!$config->get('system.strict_mode.blueprint_strict_compat', true)) {
-                    throw new RuntimeException(sprintf('%s is not defined in blueprints', $key));
+                    throw new RuntimeException(sprintf('%s is not defined in blueprints', $key), 400);
                 }
 
                 user_error(sprintf('Having extra key %s in your data is deprecated with blueprint having \'validation: strict\'', $key), E_USER_DEPRECATED);

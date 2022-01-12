@@ -3,7 +3,7 @@
 /**
  * @package    Grav\Framework\Flex
  *
- * @copyright  Copyright (c) 2015 - 2021 Trilby Media, LLC. All rights reserved.
+ * @copyright  Copyright (c) 2015 - 2022 Trilby Media, LLC. All rights reserved.
  * @license    MIT License; see LICENSE file for details.
  */
 
@@ -50,11 +50,12 @@ class FlexPageObject extends FlexObject implements PageInterface, FlexTranslateI
     /** @var array|null */
     protected $_reorder;
     /** @var FlexPageObject|null */
-    protected $_original;
+    protected $_originalObject;
 
     /**
      * Clone page.
      */
+    #[\ReturnTypeWillChange]
     public function __clone()
     {
         parent::__clone();
@@ -264,7 +265,7 @@ class FlexPageObject extends FlexObject implements PageInterface, FlexTranslateI
      */
     public function getOriginal()
     {
-        return $this->_original;
+        return $this->_originalObject;
     }
 
     /**
@@ -276,8 +277,8 @@ class FlexPageObject extends FlexObject implements PageInterface, FlexTranslateI
      */
     public function storeOriginal(): void
     {
-        if (null === $this->_original) {
-            $this->_original = clone $this;
+        if (null === $this->_originalObject) {
+            $this->_originalObject = clone $this;
         }
     }
 
